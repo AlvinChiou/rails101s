@@ -1,9 +1,11 @@
 class GroupsController < ApplicationController
 
   def index
-    flash[:notice] = "早安！"
+    #flash[:notice] = "早安！"
     # flash[:alert] = "晚安！該睡了！"
     # flash[:warning] = "測試Warning"
+
+    @groups = Group.all
   end
 
   def show
