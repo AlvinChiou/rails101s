@@ -26,6 +26,7 @@ class GroupsController < ApplicationController
     if @group.save
       redirect_to groups_path, notice: '新增群組成功！'
     else
+    #  flash.now[:alert] = '幹！標題是不會寫喔？'
       render :new
     end
   end
