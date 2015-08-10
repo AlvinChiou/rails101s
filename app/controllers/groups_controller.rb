@@ -33,14 +33,16 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.update(group_params)
-      redirect_to group_path, notice:'編輯討論版成功！'
+      redirect_to groups_path, notice:'編輯討論版成功！'
     else
       render :edit
     end
   end
 
   def destroy
-    
+    @group = Group.find(params[:id])
+    @group.destroy
+    redirect_to groups_path, alert:'討論版已經刪除！'
   end
 # 以下為擴充method
   private
