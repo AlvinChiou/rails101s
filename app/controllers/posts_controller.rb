@@ -1,17 +1,21 @@
 class PostsController < ApplicationController
 
+  #before_action指定的行為通常是這個Controller所有method都會執行的第一件事，是一種AOP的實作
+  before_action :find_group
+
+  # before_action: find_group, only: [:edit, :update] 可以用 only,指定某些 action 執行
+
+  # before_action: find_group, except: [:show, :index] 或者使用 except,排除某些 action 不執行
+
   def new
-    @group = Group.find(params[:group_id])
     @post = @group.posts.new
   end
 
   def edit
-    @group = Group.find(params[:group_id])
     @post = @group.posts.find(params[:id])
   end
 
   def create
-    @group = Group.find(params[:group_id])
     @post = @group.posts.build(post_params)
 
     if @post.save
@@ -22,7 +26,6 @@ class PostsController < ApplicationController
   end
 
   def update
-    @group = Group.find(params[:group_id])
     @post = @group.posts.find(params[:id])
 
     if @post.update(post_params)
@@ -33,8 +36,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @group = Group.find(params[:group_id])
-
     #先驗證這個 group 裡面是否有這個 post，如果有就刪除
     @post = @group.posts.find(params[:id])
 
@@ -45,6 +46,11 @@ class PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:content)
+  end
+
+  private
+  def find_group
+    @group = Group.find(params[:group_id])
   end
 
 end
