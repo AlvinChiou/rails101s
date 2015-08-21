@@ -34,6 +34,8 @@ class PostsController < ApplicationController
 
   def destroy
     @group = Group.find(params[:group_id])
+
+    #先驗證這個 group 裡面是否有這個 post，如果有就刪除
     @post = @group.posts.find(params[:id])
 
     @post.destroy
