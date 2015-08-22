@@ -1,4 +1,4 @@
 class Post < ActiveRecord::Base
   belongs_to :group
-  vaildates :content, presence: true
+  validates :content, presence: true
 end
