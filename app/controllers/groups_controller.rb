@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
 
+  before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy]
   def index
     #flash[:notice] = "早安！"
     # flash[:alert] = "晚安！該睡了！"
