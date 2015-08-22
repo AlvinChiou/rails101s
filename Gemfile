@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'bootstrap-sass'
 
+gem "devise"
+
 gem 'simple_form'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -49,4 +51,3 @@ group :development, :test do
 
   gem 'rails_best_practices', require: false
 end
-
