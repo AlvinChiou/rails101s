@@ -9,8 +9,16 @@ class ApplicationController < ActionController::Base
 
   protected
   def configure_permitted_parameters
+    # 加入新增姓名欄位的 strong_parameters
     devise_parameter_sanitizer.for(:sign_up){
       |u| u.permit(:name, :email, :password, :password_confirmation)
     }
+
+    # 加入edit_account 的 strong_parameters
+    devise_parameter_sanitizer.for(:account_update){
+      |u| u.permit(:name, :email, :password, :password_confirmation, :current_password)
+    }
+
   end
+
 end
