@@ -60,6 +60,7 @@ class GroupsController < ApplicationController
   private
   def find_group
   #  @group = Group.find(params[:id])
+    #只有作者才能有 group 的修改/刪除權限
     @group = current_user.groups.find(params[:id])
   end
 
