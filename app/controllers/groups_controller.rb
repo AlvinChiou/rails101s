@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
   end
 
   def new
-    @group = current_user.groups.new
+    @group = Group.new
   end
 
   def edit
@@ -27,7 +27,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.create(group_params)
+    @group = current_user.groups.create(group_params)
 
     if @group.save
       redirect_to groups_path, notice: '新增群組成功！'
