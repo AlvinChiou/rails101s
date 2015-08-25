@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
   has_many :posts
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  def is_member_of?(group)
+    participated_groups.include?(group)
+  end
 end

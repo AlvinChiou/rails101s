@@ -10,6 +10,8 @@ class PostsController < ApplicationController
 
   before_action :current_user_posts, only:[:edit, :update, :destroy]
 
+  before_action :member_required, only:[:new, :create]
+
   def new
     @post = @group.posts.new
   end
@@ -62,4 +64,14 @@ class PostsController < ApplicationController
   def current_user_posts
     @post = current_user.posts.find(params[:id])
   end
+
+  # user 必須要是這個社團的成員才能發表文章
+  private
+  def member_required
+    if !current_user.is_member_of?(@group)
+      flash[:warning]="你不是這個討論版的成員，不能發文喔！"
+      redirect_to group_path(@group)
+    end
+  end
+
 end
