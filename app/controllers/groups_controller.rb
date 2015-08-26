@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   before_action :authenticate_user!, only:[:new, :edit, :create, :update, :destroy]
 
   # 將所有查詢群組的程式碼收編至 find_group
-  before_action :find_group, only:[:show, :edit, :update, :destroy]
+  before_action :find_group, only:[:edit, :update, :destroy]
   def index
     #flash[:notice] = "早安！"
     # flash[:alert] = "晚安！該睡了！"
@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-  #  @group = Group.find(params[:id])
+    @group = Group.find(params[:id])
     @posts = @group.posts
   end
 
@@ -52,6 +52,30 @@ class GroupsController < ApplicationController
     redirect_to groups_path, alert:'討論版已經刪除！'
   end
 # 以下為擴充method
+
+  def join
+    @group = Group.find(params[:id])
+
+    if !current_user.is_member_of?(@group)
+      current_user.join!(@group)
+      flash[:notice] = "加入本討論版群組成功！"
+    else
+      flash[:warning] = "您已經是本討論版群組成員囉！"
+    end
+    redirect_to group_path(@group)
+  end
+
+  def quit
+    @group = Group.find(params[:id])
+    if current_user.is_member_of?(@group)
+      current_user.quit!(@group)
+      flash[:notice] = "您已經退出本討論版群組！"
+    else
+      flash[:warning] = "你不是本討論版成員，怎麼退出 XD"
+    end
+    redirect_to group_path(@group)
+  end
+
   private
   def group_params
     params.require(:group).permit(:title, :description)
