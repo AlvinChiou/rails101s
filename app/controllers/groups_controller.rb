@@ -1,3 +1,13 @@
+class Account::GroupsController < ApplicationController
+
+  before_action :authenticate_user!
+
+  def index
+    @groups = current_user.participated_groups
+  end
+
+end
+
 # Reference: http://courses.growthschool.com/courses/rails-101/lectures/229615
 class GroupsController < ApplicationController
 
@@ -32,7 +42,7 @@ class GroupsController < ApplicationController
     if @group.save
       # User 在建立 group 後自動成為 group 的一員
       current_user.join!(@group)
-      
+
       redirect_to groups_path, notice: '新增群組成功！'
     else
     #  flash.now[:alert] = '幹！標題是不會寫喔？'
