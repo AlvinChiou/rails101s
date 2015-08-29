@@ -1,3 +1,14 @@
+class Account::PostsController < ApplicationController
+
+  before_action :authenticate_user!
+
+  def index
+    @posts = current_user.posts
+    #@posts = current_user.participated_posts
+  end
+
+end
+
 class PostsController < ApplicationController
 
   #before_action指定的行為通常是這個Controller所有method都會執行的第一件事，是一種AOP的實作
