@@ -1,13 +1,3 @@
-class Account::GroupsController < ApplicationController
-
-  before_action :authenticate_user!
-
-  def index
-    @groups = current_user.participated_groups.order(post_count: :desc)
-  end
-
-end
-
 # Reference: http://courses.growthschool.com/courses/rails-101/lectures/229615
 class GroupsController < ApplicationController
 
