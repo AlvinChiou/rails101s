@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   belongs_to :author, class_name: "User", foreign_key: :user_id
   validates :content, presence: true
 
-  # 使用 scope 整理 query
+  # 使用 scope 整理 query，減少重複程式碼容易除錯
   scope :recent, -> {order("updated_at DESC")}
 
   def editable_by?(user)
